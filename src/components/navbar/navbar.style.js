@@ -6,14 +6,14 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-between',
     alignItems: 'center',
     height: 64,
-    padding: '0px 24px 0px 24px',
+    padding: '0px 24px 0px 0px',
     color: 'white',
   },
   navLeft: {
     display: 'grid',
     gridTemplateColumns: 'auto auto auto',
     gridGap: 20,
-    alignItems: 'center'
+    alignItems: 'center',
   },
   navRight: {
     display: 'flex',
@@ -29,12 +29,11 @@ const useStyles = makeStyles((theme) => ({
   toggleBtn: {
     display: 'none',
     [theme.breakpoints.down('md')]: {
-      display: 'block'
+      display: 'block',
     },
     [theme.breakpoints.up('md')]: {
-      display: 'none'
+      display: 'none',
     },
-
   },
   navLinks: {
     position: 'absolute',
@@ -45,10 +44,10 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#0B79D0',
     color: 'white',
     top: 64,
-    padding: '16px 24px'
+    padding: '16px 24px',
   },
   ml2: {
-    marginLeft: theme.spacing(4)
+    marginLeft: theme.spacing(4),
   },
 
   search: {
@@ -66,7 +65,7 @@ const useStyles = makeStyles((theme) => ({
       width: 'auto',
     },
     [theme.breakpoints.down('md')]: {
-      display: 'none'
+      display: 'none',
     },
   },
   searchToggle: {
@@ -81,7 +80,7 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     [theme.breakpoints.up('sm')]: {
       width: 'auto',
-    }
+    },
   },
   searchIcon: {
     padding: theme.spacing(0, 2),
@@ -105,17 +104,17 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   headerTitle: {
-    color: "#424242"
+    color: '#424242',
   },
   appBar: {
-    background: "white",
-    color: "#424242",
-    boxShadow: "none",
-    borderBottom: "1px solid rgba(0, 0, 0, 0.12)",
-    transition: theme.transitions.create(["margin", "width"], {
+    background: 'white',
+    color: '#424242',
+    boxShadow: 'none',
+    borderBottom: '1px solid rgba(0, 0, 0, 0.12)',
+    transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
-    })
+    }),
   },
   appBarShift: {
     width: `calc(100%)`,
@@ -123,18 +122,20 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('xs')]: {
       width: `calc(100%)`,
       // marginLeft: 60,
-      height: "58px",
+      height: '58px',
     },
-    transition: theme.transitions.create(["margin", "width"], {
+    transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
   },
   logo: {
-    display: "flex",
+    display: 'flex',
     padding: theme.spacing(0, 1),
     ...theme.mixins.toolbar,
-    justifyContent: "center",
+    justifyContent: 'center',
+    cursor: 'pointer',
+    minHeight: '80px !important',
   },
 }));
 
