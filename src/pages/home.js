@@ -137,7 +137,7 @@ const Home = () => {
       <Content>
         {mydata != null && (
           <>
-            <div style={{ display: "flex", alignItems: "center", flexWrap:"wrap", background: "white", borderRadius: "10px" }}>
+            <div style={{ display: "flex", marginLeft: "30%", alignItems: "center", flexWrap:"wrap", background: "white", borderRadius: "10px" }}>
               <SearchBar
                 value={textString}
                 label="Search your joke here"
@@ -146,14 +146,14 @@ const Home = () => {
                 onCancelSearch={() => {setTextString(""); search("", searchTag)}}
                 style={{minWidth:"300px"}}
               />
+              <div>
+                <Selector label={"Sort By"} options={sortByOptions} cb={SortBy} def={sortByOptions[2]}/>
+              </div>
               <Selector
                 label={"Tags"}
                 options={tagOptions}
                 cb={FilterByTag}
               />
-              <div style={{ marginLeft: "auto", alignItems: "center"}}>
-                <Selector label={"Sort By"} options={sortByOptions} cb={SortBy} def={sortByOptions[2]}/>
-              </div>
             </div>
             <br />
             <MasonartGrid data={mydata} isApproved={true}/>
