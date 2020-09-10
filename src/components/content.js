@@ -2,6 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 
 import { makeStyles } from '@material-ui/core/styles';
+import Logo from "../assets/images/slash.png"
 
 const drawerWidth = 240;
 
@@ -38,6 +39,7 @@ const Content = ({ children }) => {
     <main className={clsx(classes.content, classes.contentShift)}>
       <div className={classes.drawerHeader} />
       {children}
+      <img src={Logo} style={{position: "fixed", bottom:"0", right:"0", borderTopLeftRadius:"10px", width:"15%", minWidth:"120px"}}/>
     </main>
   );
 };

@@ -116,7 +116,7 @@ export default React.forwardRef(function CanvasImage({text}, ref) {
     }, [bgImagePromise, ref, text]) // rerender if image, text or canvas size updates
     return (
     <div>
-        <canvas ref={ref} width={300} height={200} />
+        <canvas ref={ref} width={400} height={400} />
     </div>
     
     )
