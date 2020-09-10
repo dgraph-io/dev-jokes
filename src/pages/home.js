@@ -33,6 +33,8 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down("md")]: {
       marginLeft: "0%",
     },
+    display: "flex",
+    alignItems: "center",
   },
   sort: {
     marginLeft: "14%",
