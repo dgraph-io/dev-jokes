@@ -6,21 +6,19 @@ import { GET_POST_BY_ID } from '../../gql/queryData.js';
 import Fade from '@material-ui/core/Fade';
 import { useQuery } from '@apollo/client';
 
-import { makeStyles } from '@material-ui/core/styles';
-
-const useStyles = makeStyles((theme) => ({
-  modalSize: {
-    position: 'fixed',
-    width: '70%',
-    height: '70%',
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    transform: 'translate(-50%, -50%)',
-    background: '#fff',
-  },
-}));
+// const useStyles = makeStyles((theme) => ({
+//   modalSize: {
+//     position: 'fixed',
+//     width: '70%',
+//     height: '70%',
+//     top: '50%',
+//     left: '50%',
+//     right: 'auto',
+//     bottom: 'auto',
+//     transform: 'translate(-50%, -50%)',
+//     background: '#fff',
+//   },
+// }));
 
 const CardModal = (props) => {
   const history = useHistory();
@@ -31,7 +29,6 @@ const CardModal = (props) => {
     variables: { postId: postId },
   });
   const location = useLocation();
-  const classes = useStyles();
   useEffect(() => {
     if (!loading && !error) {
       setPost(data['getPost']);
@@ -58,7 +55,7 @@ const CardModal = (props) => {
             left: '50%',
             top: '40%',
             width: '500px',
-            height: '500px',
+            height: '700px',
             transform: 'translate(-50%, -50%)',
           }}
         >
