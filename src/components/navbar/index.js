@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { Typography } from "@material-ui/core";
+import { Avatar, Link, Menu, Typography, MenuItem } from "@material-ui/core";
 import InputBase from "@material-ui/core/InputBase";
 
 import SearchIcon from "@material-ui/icons/Search";
@@ -14,6 +14,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 import clsx from "clsx";
 import useStyles from "./navbar.style";
+import { NavLink } from "react-router-dom";
 
 export function NavbarItem({type, href, onClick, text, iconName, width, height}) {
   return type === "text" ? (
@@ -38,10 +39,35 @@ export function NavbarItem({type, href, onClick, text, iconName, width, height})
 
 const AuthNav = () => {
   const { isAuthenticated } = useAuth0();
+  const [anchorEl, setAnchorEl] = useState(null);
+  const { logout } = useAuth0();
 
   return (
     <div>
-      {isAuthenticated ? <></> : <LoginButton /> }
+      {isAuthenticated ? 
+        <div style={{ display: "flex"}}>
+          <div style={{ alignSelf: "center", paddingRight: "20px" }}>
+            <Link href="/create">Create Joke</Link>
+          </div>
+          <div onClick={e => setAnchorEl(e.currentTarget)} style={{ cursor: "pointer" }}>
+            <Avatar />
+          </div>
+
+          <Menu
+            anchorEl={anchorEl}
+            keepMounted
+            open={Boolean(anchorEl)}
+            onClose={() => setAnchorEl(false)}
+            anchorOrigin={{ vertical: "bottom", horizontal: "center"}}
+            transformOrigin={{ vertical: "top", horizontal: "right"}}
+          >
+            <MenuItem onClick={() => window.location.href = "/approve"}>Approve Jokes</MenuItem>
+            <MenuItem onClick={() => window.location.href = "/flagged"}>Flagged Jokes</MenuItem>
+            <MenuItem onClick={() => logout()}>Logout</MenuItem>
+          </Menu>
+        </div> : 
+        <LoginButton /> 
+      }
     </div>
   );
 };
