@@ -42,7 +42,9 @@ const AuthNav = ({ history }) => {
           <Avatar alt={user.name} src={user.picture} />
         </IconButton>
       ) : (
-        <LoginButton />
+        <span className={classes.login}>
+          <LoginButton />
+        </span>
       )}
     </div>
   );
