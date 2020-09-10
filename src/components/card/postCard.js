@@ -301,9 +301,6 @@ export default function PostCard({
               height={'auto'}
               style={{
                 borderRadius: '10px',
-                maxHeight: '700px',
-                minHeight: '500px',
-                minWidth: '500px',
               }}
             />
           </Link>
@@ -316,9 +313,6 @@ export default function PostCard({
             height={'auto'}
             style={{
               borderRadius: '10px',
-              maxHeight: '700px',
-              minHeight: '500px',
-              minWidth: '500px',
             }}
           />
         )}
