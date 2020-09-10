@@ -27,6 +27,11 @@ const useStyles = makeStyles((theme) => ({
       display: 'flex',
     },
   },
+  login: {
+    [theme.breakpoints.down('md')]: {
+      display: 'none',
+    },
+  },
   toggleBtn: {
     display: 'none',
     [theme.breakpoints.down('md')]: {
