@@ -111,12 +111,8 @@ const Home = () => {
 
   const handleChange = async (text) => {
     setTextString(text)
+    search(text, searchTag)
   }
-
-  useEffect( () => {
-    handleClick()
-  },[textString, searchTag])
-
 
   const SortBy = async (by) => {
     if (by === "")
