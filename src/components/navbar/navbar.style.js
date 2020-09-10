@@ -20,7 +20,8 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     justifyContent: 'space-between',
     [theme.breakpoints.down('md')]: {
-      display: 'none',
+      display: 'flex',
+      marginLeft: '-15%',
     },
     [theme.breakpoints.up('md')]: {
       display: 'flex',
@@ -136,6 +137,9 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     cursor: 'pointer',
     minHeight: '80px !important',
+    [theme.breakpoints.down('md')]: {
+      marginLeft: '-15%',
+    },
   },
 }));
 

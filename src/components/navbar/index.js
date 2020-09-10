@@ -22,8 +22,9 @@ import Logo from '../../assets/images/logo.svg';
 const AuthNav = ({ history }) => {
   const { user, isAuthenticated } = useAuth0();
   const location = useLocation();
+  const classes = useStyles();
   return (
-    <div style={{ display: 'block' }}>
+    <div className={classes.navRight}>
       {location && location.pathname !== '/create' ? (
         <Button
           onClick={() => history.push('/create')}
