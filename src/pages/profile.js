@@ -18,6 +18,9 @@ const useStyles = makeStyles((theme) => ({
   },
   content: {
     marginTop: '10%',
+    [theme.breakpoints.down('md')]: {
+      marginTop: '25%',
+    },
   },
   profileImg: {
     borderRadius: '50%',
@@ -25,6 +28,10 @@ const useStyles = makeStyles((theme) => ({
   },
   logout: {
     textAlign: 'center',
+  },
+  admin: {
+    textAlign: 'center',
+    marginTop: '10px',
   },
 }));
 
@@ -65,7 +72,7 @@ const Profile = () => {
           <LogoutButton />
         </div>
         {role === 'ADMIN' ? (
-          <>
+          <div className={classes.admin}>
             <Button
               onClick={() => history.push('/approve')}
               variant="contained"
@@ -75,6 +82,7 @@ const Profile = () => {
             >
               Approve
             </Button>
+            &nbsp;
             <Button
               onClick={() => history.push('/flagged')}
               variant="contained"
@@ -84,7 +92,7 @@ const Profile = () => {
             >
               Flagged
             </Button>
-          </>
+          </div>
         ) : null}
       </div>
     </>
