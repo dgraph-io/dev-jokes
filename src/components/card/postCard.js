@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 
+import MetaTags from 'react-meta-tags';
 import { Link } from "react-router-dom";
 
 // import styles
@@ -23,11 +24,11 @@ import CancelIcon from "@material-ui/icons/Cancel";
 import FlagSharpIcon from "@material-ui/icons/FlagSharp";
 import EditIcon from "@material-ui/icons/Edit";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import TwitterIcon from "@material-ui/icons/Twitter";
+import FacebookIcon from "@material-ui/icons/Facebook";
 
 // other imports
 import DateTimeFormat from "dateformat";
-import { TwitterShareButton } from "react-share";
+import { FacebookShareButton } from "react-share";
 
 // import GQL
 import { useMutation } from "@apollo/react-hooks";
@@ -272,6 +273,18 @@ export default function PostCard({
   }
 
   return (
+    <>
+    <MetaTags>
+          <meta name="og:description" content="DevJoke Application" />
+          <meta property="og:title" content="DevJoke" />
+          <meta property="og:image" content={img} />
+          <meta property="og:url" content={"https://" + window.location.host + "/post/" + postID}/>
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta name="twitter:image" content={img} />
+          <meta name="twitter:title" content="DevJoke" />
+          <meta name="twitter:description" content="DevJoke Application" />
+
+        </MetaTags>
     <div className={"card"} style={{borderRadius: "10px"}}>
       { clickable ?
       <Link
@@ -312,14 +325,15 @@ export default function PostCard({
             >
               {numlikes}
             </Typography>
-            <TwitterShareButton
+            <FacebookShareButton
               className={classes.share}
               style={{ color: blue[500] }}
-              url={window.location.host + "/post/" + postID}
-              title="Check this out "
+              url={img}
+              quote={"Do checkout this nice joke!! #DevJoke"}
+              hashtag={"DevJoke"}
             >
-              <TwitterIcon fontSize="small" />
-            </TwitterShareButton>
+              <FacebookIcon fontSize="small" />
+            </FacebookShareButton>
           </>
         ) : (
           <>
@@ -390,6 +404,7 @@ export default function PostCard({
         <TagList tags={postTags} />
       </Collapse>
     </div>
+    </>
   );
 }
 

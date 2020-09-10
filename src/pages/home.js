@@ -125,14 +125,6 @@ const Home = () => {
     return;
   };
 
-  const FilterByTag = async (by) => {
-    console.log("Filtering Tags by:", by);
-    console.log(textString, by);
-    setSearchTag(by);
-    search(textString, by);
-    return;
-  };
-
   const onChangeTag = (tag) => {
     setSearchTag(tag);
     search(textString, tag);
