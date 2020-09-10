@@ -45,7 +45,7 @@ import {
 
 // import auth0
 import { useAuth0 } from "@auth0/auth0-react";
-import { a2gTags, g2aTags, isPresentInListOfDict } from "../../utils/utils";
+import { a2gTags, g2aTags } from "../../utils/utils";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -93,6 +93,7 @@ export default function PostCard({
   updateCache,
   id,
   location,
+  clickable
 }) {
   const classes = useStyles();
   const { isLoading, user } = useAuth0();
@@ -114,11 +115,6 @@ export default function PostCard({
   const [flagPost] = useMutation(FLAG_POST);
   const [unflagPost] = useMutation(UNFLAG_POST);
   const [editPost] = useMutation(EDIT_POST);
-
-  var flagList = [];
-  flags.forEach((element) => {
-    flagList.push({ username: element["username"] });
-  });
 
   const handleLike = () => {
     if (!user) {
@@ -178,6 +174,10 @@ export default function PostCard({
 
   const handleApprove = () => {
     console.log("Approving post...", postText, author);
+    var flagList = [];
+    flags.forEach((element) => {
+      flagList.push({ username: element["username"] });
+    });
     approvePost({
       variables: {
         input: postID,
@@ -220,14 +220,22 @@ export default function PostCard({
   // set likes
   useEffect(() => {
     if (!likes) return;
-    setLiked(isPresentInListOfDict(likes, "username", user.email))
+    likes.forEach((item) => {
+      if (item["username"] === user.email) {
+        setLiked(true);
+      }
+    });
     setnumlikes(likes.length);
-  }, [user, likes]);
+  }, [user,likes]);
 
   // set flags
   useEffect(() => {
     if (!flags) return;
-    setFlagged(isPresentInListOfDict(flags, "username", user.email))
+    flags.forEach((item) => {
+      if (item["username"] === user.email) {
+        setFlagged(true);
+      }
+    });
   }, [user, flags]);
 
   // set Tags
@@ -243,6 +251,7 @@ export default function PostCard({
 
   return (
     <div className={"card"} style={{borderRadius: "10px"}}>
+      { clickable ?
       <Link
         to={{
           pathname: `/post/${id}`,
@@ -251,14 +260,17 @@ export default function PostCard({
       >
         <img src={img} className="pic" alt={"preview"} width={"100%"} height={"auto"} 
         style={{borderRadius: "10px"}}/>
-      </Link>
+      </Link> : 
+        <img src={img} className="pic" alt={"preview"} width={"100%"} height={"auto"} 
+        style={{borderRadius: "10px"}}/>
+      }
       <CardActions disableSpacing style={{padding: "0"}}>
         {isApproved ? (
           <>
             <IconButton
               aria-label="add to favorites"
               style={{
-                color: liked ? orange[500] : grey[500],
+                color: liked === true ? orange[500] : grey[500],
                 paddingRight: "4px",
               }}
               onClick={handleLike}
@@ -364,7 +376,7 @@ export default function PostCard({
 
 function TagList({ tags }) {
   return (
-    <div>
+    <div style={{display:"flex", flexWrap:"wrap"}}>
       {tags.map((tag) => (
         <Box component="div" display="inline" p={1} m={1} bgcolor="yellow">
           {tag}
