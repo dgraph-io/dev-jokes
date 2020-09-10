@@ -20,10 +20,10 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: '0',
   },
 }));
-export const Tagger = ({ tags, onChange, selected }) => {
+export const Tagger = ({ tags, onChange, selected, expand }) => {
   const classes = useStyles();
   return (
-    <Accordion defaultExpanded={true}>
+    <Accordion defaultExpanded={expand}>
       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
         <Typography>Filter by Tags</Typography>
       </AccordionSummary>
