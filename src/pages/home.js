@@ -29,7 +29,7 @@ const sortByOptions = [
 
 const useStyles = makeStyles((theme) => ({
   search: {
-    marginLeft: "30%",
+    // marginLeft: "30%",
     [theme.breakpoints.down("md")]: {
       marginLeft: "0%",
     },
@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
   },
   sort: {
-    marginLeft: "14%",
+    // marginLeft: "14%",
     padding: "10px",
     [theme.breakpoints.down("md")]: {
       marginLeft: "0%",
