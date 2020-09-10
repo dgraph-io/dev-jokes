@@ -167,7 +167,6 @@ const Home = () => {
                       label={"Sort By"}
                       options={sortByOptions}
                       cb={SortBy}
-                      def={sortByOptions[2]}
                     />
                   </div>
                 </div>
