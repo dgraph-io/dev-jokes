@@ -39,6 +39,7 @@ import {
   FLAG_POST,
   UNFLAG_POST,
   EDIT_POST,
+  ADD_DUMMY_LIKE,
 } from "../../gql/queryData";
 
 // import auth0
@@ -86,6 +87,7 @@ export default function PostCard({
   flagCount,
   postID,
   likes,
+  dummyLikes,
   time,
   tags,
   flags,
@@ -116,10 +118,24 @@ export default function PostCard({
   const [flagPost] = useMutation(FLAG_POST);
   const [unflagPost] = useMutation(UNFLAG_POST);
   const [editPost] = useMutation(EDIT_POST);
+  const [dummyLike] = useMutation(ADD_DUMMY_LIKE);
 
   const handleLike = () => {
     if (!user) {
-      alert("Login to like the post");
+      console.log("Like by dummy user..")
+      if(!liked){
+        dummyLike(({
+          variables: {
+            postId: postID
+          }
+        }))
+        setLiked(true)
+        setnumlikes(numlikes+1)
+      }
+      else {
+        setLiked(false)
+        setnumlikes(numlikes-1)
+      }
       return;
     }
     if (liked) {
@@ -220,14 +236,19 @@ export default function PostCard({
 
   // set likes
   useEffect(() => {
-    if (!likes) return;
-    likes.forEach((item) => {
-      if (item["username"] === user.email) {
-        setLiked(true);
-      }
-    });
-    setnumlikes(likes.length);
-  }, [user,likes]);
+    var totalLikes = 0
+    if (likes){
+      likes.forEach((item) => {
+        if (item["username"] === user.email) {
+          setLiked(true);
+        }
+      });
+      totalLikes += likes.length
+    }
+    if(dummyLikes)
+      totalLikes += dummyLikes.length
+    setnumlikes(totalLikes)
+  }, [user,likes, dummyLikes]);
 
   // set flags
   useEffect(() => {
