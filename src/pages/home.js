@@ -115,7 +115,7 @@ const Home = () => {
 
   useEffect( () => {
     handleClick()
-  },[textString] )
+  },[textString, searchTag])
 
 
   const SortBy = async (by) => {
