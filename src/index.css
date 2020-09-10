@@ -29,8 +29,9 @@ a {
   background-clip: padding-box;
 }
 
-.page-container {
-  width:  calc(100% - 240px);
+.card{
+  margin-left: auto;
+  margin-right: auto;
 }
 
 @media only screen and (max-width:600px){

@@ -118,7 +118,7 @@ const useStyles = makeStyles((theme) => ({
     })
   },
   appBarShift: {
-    width: `calc(100% - 180px)`,
+  
     marginLeft: 180,
     [theme.breakpoints.down('xs')]: {
       width: `calc(100% - 60px)`,

@@ -17,6 +17,7 @@ import useImperativeQuery from "../utils/imperativeQuery";
 
 import { sortBy } from "../utils/utils";
 import { useQuery } from "@apollo/react-hooks";
+import { Chip, Hidden } from "@material-ui/core";
 
 const sortByOptions = [
   {"name": "Newest", "value":"new"},
@@ -129,32 +130,54 @@ const Home = () => {
   return (
     <>
       <Navbar title="Home" color="primary" />
-      <Content>
-        {mydata != null && (
-          <>
-            <div style={{ display: "flex", alignItems: "center", flexWrap:"wrap", background: "white", borderRadius: "10px" }}>
-              <SearchBar
-                value={textString}
-                label="Search your joke here"
-                onChange={(newText) => setTextString(newText)}
-                onRequestSearch={handleClick}
-                onCancelSearch={() => {setTextString(""); search("", searchTag)}}
-                style={{minWidth:"300px"}}
-              />
-              <Selector
-                label={"Tags"}
-                options={tagOptions}
-                cb={FilterByTag}
-              />
-              <div style={{ marginLeft: "auto", alignItems: "center"}}>
-                <Selector label={"Sort By"} options={sortByOptions} cb={SortBy}/>
-              </div>
+      <div style={{ display: "flex" }}>
+        <Hidden mdDown>
+          <div style={{ minWidth: "300px", paddingTop: "75px", paddingLeft: "20px", paddingRight: "20px", flex: "0 0 300px" }}>
+            <h2>Tags</h2>
+
+            <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between" }}>
+              {tagOptions.map(tag => (
+                <div style={{ paddingRight: "4px", paddingBottom: "4px" }}>
+                  <Chip 
+                    label={tag.name} 
+                    onClick={() => FilterByTag(tag.value)}
+                    onDelete={searchTag === tag.value? () => setSearchTag("") : ""} 
+                    color={searchTag === tag.value? "primary" : ""}
+                  />
+                </div>
+                )
+              )}
             </div>
-            <br />
-            <MasonartGrid data={mydata} isApproved={true}/>
-          </>
-        )}
-      </Content>
+            
+          </div>
+        </Hidden>
+        <Content>
+          {mydata != null && (
+            <>
+              <div style={{ display: "flex", alignItems: "center", flexWrap:"wrap", background: "white", borderRadius: "10px" }}>
+                <SearchBar
+                  value={textString}
+                  label="Search your joke here"
+                  onChange={(newText) => setTextString(newText)}
+                  onRequestSearch={handleClick}
+                  onCancelSearch={() => {setTextString(""); search("", searchTag)}}
+                  style={{minWidth:"300px"}}
+                />
+                <Selector
+                  label={"Tags"}
+                  options={tagOptions}
+                  cb={FilterByTag}
+                />
+                <div style={{ marginLeft: "auto", alignItems: "center"}}>
+                  <Selector label={"Sort By"} options={sortByOptions} cb={SortBy}/>
+                </div>
+              </div>
+              <br />
+              <MasonartGrid data={mydata} isApproved={true}/>
+            </>
+          )}
+        </Content>
+      </div>
     </>
   );
 };

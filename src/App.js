@@ -17,7 +17,6 @@ import Approve from "./pages/approve"
 import NotFound from "./pages/not-found";
 import Flagged from "./pages/flagged"
 import PrivateRoute from "./components/privateRoute"
-import {Sidebar, SidebarItem} from './components/sidebar';
 import Loading from "./components/loading"
 import CardModal from "./components/card/cardModal"
 
@@ -80,18 +79,6 @@ function App() {
     <ApolloProvider client={client}>
     <div className={classes.root}>
       <CssBaseline />
-      <Sidebar>
-        <></>
-        <>
-        <SidebarItem label="Home" icon={HomeIcon} link="/" />
-        <SidebarItem label="Create" icon={EditIcon} link="/create"/>
-      { isAuthenticated ? <>
-        <SidebarItem label="Profile" icon={PersonIcon} link="/profile" />
-        <AdminSidebarItem role={role}/>
-        </> : null
-      }
-      </>
-      </Sidebar>
       <Router history={history}>
         <Suspense fallback={<div />}>
           <ModalSwitch />
@@ -119,16 +106,6 @@ function ModalSwitch(){
        {background && <Route path="/post/:postId" exact={true} component={CardModal}/>}
     </div>
   );
-}
-
-function AdminSidebarItem({role}) {
-  return role === 'ADMIN' ? 
-  <>
-  <SidebarItem label="Approve" icon={CheckCircleIcon} link="/approve"/>
-  <SidebarItem label="Flagged" icon={FlagIcon} link="/flagged"/>
-  </>
-  :
-  <></>
 }
 
 export default App;
