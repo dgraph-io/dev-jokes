@@ -11,8 +11,8 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme) => ({
   modalSize: {
     position: 'fixed',
-    width: '60%',
-    height: '60%',
+    width: '70%',
+    height: '70%',
     top: '50%',
     left: '50%',
     right: 'auto',
@@ -49,37 +49,37 @@ const CardModal = (props) => {
 
   return (
     <Modal open={open} onClose={handleClose}>
-      <div className={classes.modalSize}>
-        <Fade in={open}>
-          <div
-            style={{
-              outline: 'none',
-              position: 'absolute',
-              left: '50%',
-              top: '50%',
-              transform: 'translate(-50%, -50%)',
-            }}
-          >
-            {post && (
-              <PostCard
-                size={'500px'}
-                author={post.createdby.username}
-                text={post.text}
-                postID={post.id}
-                time={post.timeStamp}
-                likes={post.likes}
-                flagCount={post.numFlags}
-                flags={post.flags}
-                tags={post.tags}
-                img={post.img}
-                isApproved={true}
-                id={post.id}
-                clickable={false}
-              />
-            )}
-          </div>
-        </Fade>
-      </div>
+      {/* <div className={classes.modalSize}> */}
+      <Fade in={open}>
+        <div
+          style={{
+            outline: 'none',
+            position: 'absolute',
+            left: '50%',
+            top: '50%',
+            transform: 'translate(-50%, -50%)',
+          }}
+        >
+          {post && (
+            <PostCard
+              size={'500px'}
+              author={post.createdby.username}
+              text={post.text}
+              postID={post.id}
+              time={post.timeStamp}
+              likes={post.likes}
+              flagCount={post.numFlags}
+              flags={post.flags}
+              tags={post.tags}
+              img={post.img}
+              isApproved={true}
+              id={post.id}
+              clickable={false}
+            />
+          )}
+        </div>
+      </Fade>
+      {/* </div> */}
     </Modal>
   );
 };

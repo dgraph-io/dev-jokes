@@ -299,7 +299,12 @@ export default function PostCard({
               alt={'preview'}
               width={'100%'}
               height={'auto'}
-              style={{ borderRadius: '10px' }}
+              style={{
+                borderRadius: '10px',
+                maxHeight: '700px',
+                minHeight: '500px',
+                minWidth: '500px',
+              }}
             />
           </Link>
         ) : (
@@ -309,7 +314,12 @@ export default function PostCard({
             alt={'preview'}
             width={'100%'}
             height={'auto'}
-            style={{ borderRadius: '10px' }}
+            style={{
+              borderRadius: '10px',
+              maxHeight: '700px',
+              minHeight: '500px',
+              minWidth: '500px',
+            }}
           />
         )}
         <CardActions disableSpacing style={{ padding: '0' }}>
