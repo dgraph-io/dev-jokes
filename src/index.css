@@ -23,6 +23,8 @@ a {
   display: flex;
   margin-left: -30px; /* gutter size offset */
   width: auto;
+  height: calc(100vh - 210px);
+  overflow: auto;
 }
 .my-masonry-grid_column {
   padding-left: 30px; /* gutter size */
@@ -33,9 +35,90 @@ a {
   width: 100%;
 }
 
+.homepage-container {
+  display: flex;
+  flex-wrap: wrap;
+  border-radius: 10px;
+  flex-direction: row;
+  width: 100%;
+}
+
+.homepage-sidebar {
+  width: 200px;
+}
+
+.homepage-content-container {
+  display: flex;
+  border-radius: 10px;
+  flex-direction: column;
+  margin-left: 40px;
+  width: calc(100% - 240px);
+}
+
+.homepage-search-container {
+  flex-direction: row;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+  width: 60%;
+}
+
+.searchbar-container {
+  width: 400px;
+}
+
 @media only screen and (max-width: 600px) {
   .card {
-    width: 250px;
+    /* width: 250px; */
+  }
+
+  .my-masonry-grid {
+    display: -webkit-box; /* Not needed if autoprefixing */
+    display: -ms-flexbox; /* Not needed if autoprefixing */
+    display: flex;
+    margin-left: -30px; /* gutter size offset */
+    width: auto;
+    height: calc(100vh - 210px);
+    overflow: auto;
+  }
+  .my-masonry-grid_column {
+    padding-left: 30px; /* gutter size */
+    background-clip: padding-box;
+  }
+
+  .page-container {
+    width: 100%;
+  }
+
+  .homepage-container {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .homepage-sidebar {
+    width: 100%;
+  }
+
+  .homepage-content-container {
+    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+    margin-left: 0;
+    width: calc(100%);
+  }
+  .homepage-search-container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .searchbar-container {
+    width: 100%;
   }
 }
 

@@ -32,7 +32,7 @@ export function Selector({label, cb, options}) {
   };
 
   return (
-    <FormControl className={classes.formControl}>
+    <FormControl className={classes.formControl} >
       <InputLabel htmlFor="outlined-age-native-simple">{label}</InputLabel>
       <Select
         native
