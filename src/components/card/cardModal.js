@@ -77,6 +77,7 @@ const CardModal = (props) => {
               isApproved={true}
               id={post.id}
               clickable={false}
+              dummyLikes={post.dummyLikes}
             />
           )}
         </div>
