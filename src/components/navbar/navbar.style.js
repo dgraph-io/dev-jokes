@@ -118,18 +118,24 @@ const useStyles = makeStyles((theme) => ({
     })
   },
   appBarShift: {
-    width: `calc(100% - 180px)`,
-    marginLeft: 180,
+    width: `calc(100%)`,
+    // marginLeft: 180,
     [theme.breakpoints.down('xs')]: {
-      width: `calc(100% - 60px)`,
-      marginLeft: 60,
+      width: `calc(100%)`,
+      // marginLeft: 60,
       height: "58px",
     },
     transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
-  }
+  },
+  logo: {
+    display: "flex",
+    padding: theme.spacing(0, 1),
+    ...theme.mixins.toolbar,
+    justifyContent: "center",
+  },
 }));
 
 export default useStyles;
