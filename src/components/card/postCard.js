@@ -105,7 +105,7 @@ export default function PostCard({
   const [expanded, setExpanded] = useState(false);
   const [liked, setLiked] = useState(false);
   const [flagged, setFlagged] = useState(false);
-  const [numlikes, setnumlikes] = useState(0);
+  const [numlikes, setnumlikes] = useState(likes.length + dummyLikes.length);
   const [postText, setPostText] = useState(text);
   const [postTags, setPostTags] = useState(null);
   const [open, setOpen] = useState(false);
@@ -237,18 +237,13 @@ export default function PostCard({
 
   // set likes
   useEffect(() => {
-    var totalLikes = 0
     if (likes){
       likes.forEach((item) => {
         if (item["username"] === user.email) {
           setLiked(true);
         }
       });
-      totalLikes += likes.length
     }
-    if(dummyLikes)
-      totalLikes += dummyLikes.length
-    setnumlikes(totalLikes)
   }, [user,likes, dummyLikes]);
 
   // set flags
