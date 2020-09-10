@@ -12,10 +12,8 @@ import TransitionModal from "./postModal";
 
 // import material UI
 import Box from "@material-ui/core/Box";
-import CardHeader from "@material-ui/core/CardHeader";
 import CardActions from "@material-ui/core/CardActions";
 import Collapse from "@material-ui/core/Collapse";
-import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import { red, blue, grey, orange } from "@material-ui/core/colors";
@@ -65,6 +63,9 @@ const useStyles = makeStyles((theme) => ({
   },
   share: {
     marginLeft: "auto",
+  },
+  flag: {
+    marginRight: "10px",
   },
   likeCount: {
     fontSize: "large",
@@ -290,15 +291,6 @@ export default function PostCard({
             >
               {numlikes}
             </Typography>
-            <IconButton
-              aria-label="flag"
-              value="check"
-              style={{ color: flagged ? red[500] : grey[500] }}
-              onClick={handleFlag}
-              selected={flagged}
-            >
-              <FlagSharpIcon fontSize="small" />
-            </IconButton>
             <TwitterShareButton
               className={classes.share}
               style={{ color: blue[500] }}
@@ -352,15 +344,20 @@ export default function PostCard({
         </IconButton>
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardHeader
-          avatar={
-            <Avatar aria-label="recipe" className={classes.avatar}>
-              {author[0].toUpperCase()}
-            </Avatar>
-          }
-          title={author}
-          subheader={DateTimeFormat(time, "mmm dS, h:MM")}
-        />
+        <div>
+         {DateTimeFormat(time, "mmm dS, h:MM")}
+         <IconButton
+            aria-label="flag"
+            className={classes.flag}
+            value="check"
+            style={{ color: flagged ? red[500] : grey[500] }}
+            onClick={handleFlag}
+            selected={flagged}
+          >
+          <FlagSharpIcon fontSize="small" />
+         </IconButton>
+        </div>
+
         {isApproved ? (
           <></>
         ) : (
@@ -368,6 +365,7 @@ export default function PostCard({
             {postText}
           </Typography>
         )}
+        
         <TagList tags={postTags} />
       </Collapse>
     </div>

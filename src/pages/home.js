@@ -109,6 +109,11 @@ const Home = () => {
     return;
   };
 
+  const handleChange = async (text) => {
+    setTextString(text)
+    search(text, searchTag)
+  }
+
   const SortBy = async (by) => {
     if (by === "")
       return
@@ -136,7 +141,7 @@ const Home = () => {
               <SearchBar
                 value={textString}
                 label="Search your joke here"
-                onChange={(newText) => setTextString(newText)}
+                onChange={(newText) => handleChange(newText)}
                 onRequestSearch={handleClick}
                 onCancelSearch={() => {setTextString(""); search("", searchTag)}}
                 style={{minWidth:"300px"}}
@@ -147,7 +152,7 @@ const Home = () => {
                 cb={FilterByTag}
               />
               <div style={{ marginLeft: "auto", alignItems: "center"}}>
-                <Selector label={"Sort By"} options={sortByOptions} cb={SortBy}/>
+                <Selector label={"Sort By"} options={sortByOptions} cb={SortBy} def={sortByOptions[2]}/>
               </div>
             </div>
             <br />
