@@ -18,7 +18,7 @@ import Collapse from "@material-ui/core/Collapse";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import { red, blue, grey, orange } from "@material-ui/core/colors";
-import EmojiEmotionsIcon from "@material-ui/icons/EmojiEmotions";
+import FavoriteIcon from "@material-ui/icons/Favorite";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import CancelIcon from "@material-ui/icons/Cancel";
 import FlagSharpIcon from "@material-ui/icons/FlagSharp";
@@ -305,13 +305,13 @@ export default function PostCard({
             <IconButton
               aria-label="add to favorites"
               style={{
-                color: liked === true ? orange[500] : grey[500],
+                color: liked === true ? red[500] : grey[500],
                 paddingRight: "4px",
               }}
               onClick={handleLike}
               selected={liked}
             >
-              <EmojiEmotionsIcon fontSize="small" />
+              <FavoriteIcon fontSize="small" />
             </IconButton>
             <Typography
               variant="button"

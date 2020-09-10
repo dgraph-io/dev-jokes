@@ -147,7 +147,7 @@ const Home = () => {
               </div>
 
               <div className="homepage-content-container">
-                <div className="homepage-search-container">
+                <div className="homepage-search-container" style={{marginLeft:"30%"}}>
                   <div className="searchbar-container ">
                     <SearchBar
                       value={textString}
