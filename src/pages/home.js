@@ -133,6 +133,11 @@ const Home = () => {
     return;
   };
 
+  const onChangeTag = (tag) => {
+    setSearchTag(tag);
+    search(textString, tag);
+  };
+
   return (
     <>
       <Navbar title="Home" color="primary" />
@@ -141,7 +146,12 @@ const Home = () => {
           <>
             <div className="homepage-container">
               <div className="homepage-sidebar">
-                <Tagger tags={tagOptions} onChange={handleChange} />
+                <Tagger
+                  tags={tagOptions}
+                  onChange={(e) => {
+                    onChangeTag(e.target.value);
+                  }}
+                />
               </div>
 
               <div className="homepage-content-container">

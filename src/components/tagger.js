@@ -26,16 +26,12 @@ export const Tagger = ({ tags, onChange, selected }) => {
   const classes = useStyles();
   return (
     <Accordion defaultExpanded={true}>
-      <AccordionSummary
-        expandIcon={<ExpandMoreIcon />}
-        aria-controls="panel1a-content"
-        id="panel1a-header"
-      >
+      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
         <Typography>Filter by Tags</Typography>
       </AccordionSummary>
       <AccordionDetails className={classes.root}>
         <FormControl component="fieldset">
-          <RadioGroup aria-label="gender" name="gender1" onChange={onChange}>
+          <RadioGroup onChange={onChange}>
             {tags.map(({ name, value }) => (
               <FormControlLabel
                 value={value}
