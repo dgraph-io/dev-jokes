@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useHistory, useLocation } from "react-router-dom";
 
 import { Typography } from "@material-ui/core";
 import InputBase from "@material-ui/core/InputBase";
@@ -11,9 +12,13 @@ import AppBar from "@material-ui/core/AppBar";
 
 import LoginButton from "../auth/loginButton";
 import { useAuth0 } from "@auth0/auth0-react";
+import Button from '@material-ui/core/Button';
+import AddIcon from '@material-ui/icons/Add';
+import Avatar from '@material-ui/core/Avatar';
 
 import clsx from "clsx";
 import useStyles from "./navbar.style";
+import Logo from "../../assets/images/logo.svg";
 
 export function NavbarItem({type, href, onClick, text, iconName, width, height}) {
   return type === "text" ? (
@@ -36,13 +41,31 @@ export function NavbarItem({type, href, onClick, text, iconName, width, height})
     )
 }
 
-const AuthNav = () => {
-  const { isAuthenticated } = useAuth0();
-
-  return (
+const AuthNav = ({history}) => {
+  const { user, isAuthenticated } = useAuth0();
+  const location = useLocation();
+  return (<>
+    {location && location.pathname !== "/create" ?
+      <Button
+        onClick={() => history.push("/create")}
+        variant="contained"
+        color="secondary"
+        className="btn-margin"
+        startIcon={<AddIcon/>}
+      >
+        Create
+      </Button>:<></>
+    }
     <div>
-      {isAuthenticated ? <></> : <LoginButton /> }
+      {isAuthenticated ? 
+      <IconButton 
+        onClick={() => history.push("/profile")}
+      >
+        <Avatar alt={user.name} src={user.picture} />
+      </IconButton>
+      : <LoginButton /> }
     </div>
+    </>
   );
 };
 
@@ -50,6 +73,7 @@ const AuthNav = () => {
 export function Navbar({title, searchBar, children = [], color = "primary"}) {
   const classes = useStyles();
   const [closeBtn, setCloseBtn] = useState(false);
+  const history = useHistory();
 
   const getSearchBar = (view) => {
     return searchBar ? (
@@ -91,7 +115,9 @@ export function Navbar({title, searchBar, children = [], color = "primary"}) {
           <Typography variant="h6" className={classes.headerTitle}>{title}</Typography>
           {getSearchBar("web")}
         </div>
-
+        <div className={classes.logo}>
+          <img src={Logo} alt="logo" onClick={() => history.push("/")}/>
+        </div>
         <div className={classes.navRight}>{getNavRightItems("web")}</div>
 
         <div
@@ -102,7 +128,7 @@ export function Navbar({title, searchBar, children = [], color = "primary"}) {
             {!closeBtn ? <MenuIcon /> : <CloseIcon />}
           </IconButton>
         </div>
-        <AuthNav />
+        <AuthNav history={history}/>
       </div>
       {closeBtn ? (
         <div className={classes.navLinks}>
