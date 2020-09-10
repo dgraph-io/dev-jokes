@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import {
+  isMobile
+} from "react-device-detect";
 
 import Content from '../components/content';
 import { Navbar } from '../components/navbar';
@@ -151,6 +154,7 @@ const Home = () => {
                   onChange={(e) => {
                     onChangeTag(e.target.value);
                   }}
+                  expand={ isMobile ? false : true }
                 />
               </div>
 
