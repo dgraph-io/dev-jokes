@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import {
-  isMobile
-} from "react-device-detect";
+import { isMobile } from 'react-device-detect';
 
 import Content from '../components/content';
 import { Navbar } from '../components/navbar';
 import { Selector } from '../components/selector';
 import SearchBar from 'material-ui-search-bar';
 import MasonartGrid from '../components/masonryGrid';
+import { makeStyles } from '@material-ui/core/styles';
 
 import {
   GET_TAGS,
@@ -28,11 +27,28 @@ const sortByOptions = [
   { name: 'Most Liked', value: 'liked' },
 ];
 
+const useStyles = makeStyles((theme) => ({
+  search: {
+    marginLeft: '30%',
+    [theme.breakpoints.down('md')]: {
+      marginLeft: '0%',
+    },
+  },
+  sort: {
+    marginLeft: '14%',
+    padding: '10px',
+    [theme.breakpoints.down('md')]: {
+      marginLeft: '0%',
+    },
+  },
+}));
+
 const Home = () => {
   const [mydata, setMydata] = useState(null);
   const [tagOptions, setTagOptions] = useState([]);
   const [textString, setTextString] = useState('');
   const [searchTag, setSearchTag] = useState('');
+  const classes = useStyles();
 
   const searchPosts = useImperativeQuery(SEARCH_POSTS);
   const searchPostsByTag = useImperativeQuery(SEARCH_POST_BY_TAG);
@@ -154,16 +170,16 @@ const Home = () => {
                   onChange={(e) => {
                     onChangeTag(e.target.value);
                   }}
-                  expand={ isMobile ? false : true }
+                  expand={isMobile ? false : true}
                 />
               </div>
 
               <div className="homepage-content-container">
                 <div
-                  className="homepage-search-container"
-                  style={{ marginLeft: '30%' }}
+                  // className="homepage-search-container"
+                  className={classes.search}
                 >
-                  <div className="searchbar-container ">
+                  <div className="searchbar-container">
                     <SearchBar
                       value={textString}
                       label="Search your joke here"
@@ -177,7 +193,7 @@ const Home = () => {
                     />
                   </div>
 
-                  <div style={{ alignItems: 'center' }}>
+                  <div className={classes.sort}>
                     <Selector
                       label={'Sort By'}
                       options={sortByOptions}
