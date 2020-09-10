@@ -250,7 +250,7 @@ export default function PostCard({
   }
 
   return (
-    <div className={"card"} style={{borderRadius: "10px"}}>
+    <div className={"card"} style={{borderRadius: "10px" }}>
       { clickable ?
       <Link
         to={{
@@ -259,10 +259,10 @@ export default function PostCard({
         }}
       >
         <img src={img} className="pic" alt={"preview"} width={"100%"} height={"auto"} 
-        style={{borderRadius: "10px"}}/>
+        style={{borderRadius: "10px", height: "250px" }} />
       </Link> : 
         <img src={img} className="pic" alt={"preview"} width={"100%"} height={"auto"} 
-        style={{borderRadius: "10px"}}/>
+        style={{borderRadius: "10px", maxHeight: "80vh" }} />
       }
       <CardActions disableSpacing style={{padding: "0"}}>
         {isApproved ? (
