@@ -47,10 +47,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Home = () => {
+  const defaultSortOption = sortByOptions[0]['value'];
+
   const [postData, setPostData] = useState(null);
   const [tagOptions, setTagOptions] = useState([]);
   const [textString, setTextString] = useState("");
   const [searchTag, setSearchTag] = useState("");
+  const [sortOption, setSortOption] = useState(defaultSortOption);
   const [debouncedText] = useDebounce(textString, 250);
   const classes = useStyles();
 
@@ -83,10 +86,9 @@ const Home = () => {
   // set initial data
   useEffect(() => {
     if (!ploading && !perror) {
-      // sort the pData by first option of the sorter
-      setPostData(sortBy(pData.queryPost, sortByOptions[0]["value"]));
+      setPostData(sortBy(pData.queryPost, defaultSortOption));
     }
-  }, [pData, ploading, perror]);
+  }, [pData, ploading, perror, defaultSortOption]);
 
   useEffect(() => {
     search(debouncedText, searchTag)
@@ -98,7 +100,7 @@ const Home = () => {
     // No input defined.
     if ((tag === "") & (textString === "")) {
       const { data } = await resetSearch();
-      setPostData(data.queryPost);
+      setPostData(sortBy(data.queryPost, sortOption));
       return;
     }
     // Search by text
@@ -106,7 +108,7 @@ const Home = () => {
       const { data } = await searchPosts({
         text: textString,
       });
-      setPostData(data.queryPost);
+      setPostData(sortBy(data.queryPost, sortOption));
       return;
     }
     // Search by tags
@@ -118,7 +120,7 @@ const Home = () => {
       data.queryTag.forEach((element) => {
         queryPost.push(...element["posts"]);
       });
-      setPostData(queryPost);
+      setPostData(sortBy(queryPost, sortOption));
       return;
     }
     // search by both
@@ -126,16 +128,11 @@ const Home = () => {
       text: textString,
       tags: tag,
     });
-    setPostData(data.queryPostByTextAndTags);
+    setPostData(sortBy(data.queryPostByTextAndTags, sortOption));
   };
 
   const handleClick = async () => {
     await search(textString, searchTag);
-  };
-
-  const SortBy = (by) => {
-    const data = postData;
-    setPostData(sortBy(data, by));
   };
 
   // used for toggling tag also
@@ -190,7 +187,10 @@ const Home = () => {
                     <Selector
                       label={"Sort By"}
                       options={sortByOptions}
-                      cb={SortBy}
+                      cb={(by) => {
+                        setSortOption(by)
+                        setPostData(sortBy(postData, by))
+                      }}
                     />
                   </div>
                 </div>
