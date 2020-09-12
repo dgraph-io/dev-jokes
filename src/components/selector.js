@@ -1,5 +1,5 @@
 /* eslint-disable no-use-before-define */
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
@@ -17,14 +17,9 @@ const useStyles = makeStyles((theme) => ({
 
 export function Selector({label, cb, options}) {
   const classes = useStyles();
-  const [state, setState] = React.useState({
+  const [state, setState] = useState({
     name: 'hai',
   });
-
-  //Sort by default by Newest
-  useEffect(()=> {
-    cb(options[0]["value"])
-  },[] )
 
   const handleChange = (event) => {
     const name = event.target.name;
@@ -51,7 +46,7 @@ export function Selector({label, cb, options}) {
       >
       
         {options.map((option) => (
-          <option value={option["value"]}> {option["name"]}</option>
+          <option key={option["value"]} value={option["value"]}> {option["name"]}</option>
         ))}
       </Select>
     </FormControl>

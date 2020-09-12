@@ -40,7 +40,7 @@ function FlaggedList({loading, error, data, allTags}) {
     }
     client.writeQuery({
       query: GET_FLAGGED_POST,
-      data: {queryPost: [newFlagged, ...existing_flagged.queryPost]}
+      data: [newFlagged, ...existing_flagged.queryPost]
     })
   }
 

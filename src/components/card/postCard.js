@@ -100,7 +100,7 @@ export default function PostCard({
   clickable,
 }) {
   const classes = useStyles();
-  const { isLoading, user } = useAuth0();
+  const { isLoading, user, isAuthenticated } = useAuth0();
 
   const [expanded, setExpanded] = useState(false);
   const [liked, setLiked] = useState(false);
@@ -122,8 +122,8 @@ export default function PostCard({
   const [dummyLike] = useMutation(ADD_DUMMY_LIKE);
 
   const handleLike = () => {
-    if (!user) {
-      console.log('Like by dummy user..');
+    if (!isAuthenticated) {
+      console.log('Like by dummy user..', liked, isLoading, isAuthenticated, user);
       if (!liked) {
         dummyLike({
           variables: {
@@ -162,7 +162,7 @@ export default function PostCard({
   };
 
   const handleFlag = () => {
-    if (!user) {
+    if (!isAuthenticated) {
       alert('Login to Flag the post');
       return;
     }
@@ -238,27 +238,32 @@ export default function PostCard({
   useEffect(() => {
     var totalLikes = 0
     if (likes){
-      likes.forEach((item) => {
-        if (item['username'] === user.email) {
-          setLiked(true);
-        }
-      });
+
+      if (!user || !isLoading || !isAuthenticated){
+        //
+      } else {
+        likes.forEach((item) => {
+          if (item['username'] === user.email) {
+            setLiked(true);
+          }
+        });
+      }
       totalLikes += likes.length
     }
     if(dummyLikes)
       totalLikes += dummyLikes.length
     setnumlikes(totalLikes)
-  }, [user,likes, dummyLikes]);
+  }, [user,likes, isLoading, isAuthenticated, dummyLikes]);
 
   // set flags
   useEffect(() => {
-    if (!flags) return;
+    if (!flags || !user || !isLoading || !isAuthenticated) return;
     flags.forEach((item) => {
       if (item['username'] === user.email) {
         setFlagged(true);
       }
     });
-  }, [user, flags]);
+  }, [isAuthenticated, user, isLoading, flags]);
 
   // set Tags
   useEffect(() => {
@@ -430,7 +435,7 @@ function TagList({ tags }) {
   return (
     <div style={{ display: 'flex', flexWrap: 'wrap' }}>
       {tags.map((tag) => (
-        <Box component="div" display="inline" p={1} m={1} bgcolor="yellow">
+        <Box component="div" display="inline" p={1} m={1} bgcolor="yellow" key={tag}>
           {tag}
         </Box>
       ))}

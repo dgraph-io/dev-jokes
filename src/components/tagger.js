@@ -32,6 +32,7 @@ export const Tagger = ({ tags, onChange, selected, expand }) => {
           <RadioGroup onClick={onChange} value={selected}>
             {tags.map(({ name, value }) => (
               <FormControlLabel
+                key={value}
                 value={value}
                 control={<Radio />}
                 label={name}

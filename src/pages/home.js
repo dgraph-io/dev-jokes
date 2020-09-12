@@ -5,7 +5,7 @@ import Content from "../components/content";
 import { Navbar } from "../components/navbar";
 import { Selector } from "../components/selector";
 import SearchBar from "material-ui-search-bar";
-import MasonartGrid from "../components/masonryGrid";
+import MasonaryGrid from "../components/masonryGrid";
 import { makeStyles } from "@material-ui/core/styles";
 
 import {
@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Home = () => {
-  const [mydata, setMydata] = useState(null);
+  const [postData, setPostData] = useState(null);
   const [tagOptions, setTagOptions] = useState([]);
   const [textString, setTextString] = useState("");
   const [searchTag, setSearchTag] = useState("");
@@ -56,13 +56,14 @@ const Home = () => {
   const searchPostsByTag = useImperativeQuery(SEARCH_POST_BY_TAG);
   const searchByTextAndTags = useImperativeQuery(SEARCH_BY_TEXT_AND_TAGS);
   const resetSearch = useImperativeQuery(GET_APPROVED_POST);
-  const { data: postData, loading: ploading, error: perror } = useQuery(
+  const { data: pData, loading: ploading, error: perror } = useQuery(
     GET_APPROVED_POST
   );
   const { data: tagsData, loading: tloading, error: terror } = useQuery(
     GET_TAGS
   );
 
+  // set tag options
   useEffect(() => {
     if (!tloading && !terror) {
       var options = [];
@@ -77,21 +78,20 @@ const Home = () => {
     }
   }, [tagsData, tloading, terror]);
 
+  // set initial data
   useEffect(() => {
     if (!ploading && !perror) {
-      setMydata(postData);
+      // sort the pData by first option of the sorter
+      setPostData(sortBy(pData.queryPost, sortByOptions[0]["value"]));
     }
-  }, [postData, ploading, perror]);
+  }, [pData, ploading, perror]);
 
-  const reset = async () => {
-    const { data } = await resetSearch();
-    setMydata(data);
-  };
-
+  //  triggers the best fitting query based on search parameter
   const search = async (textString = "", tag = "") => {
     // No input defined.
     if ((tag === "") & (textString === "")) {
-      reset();
+      const { data } = await resetSearch();
+      setPostData(data);
       return;
     }
     // Search by text
@@ -99,7 +99,7 @@ const Home = () => {
       const { data } = await searchPosts({
         text: textString,
       });
-      setMydata(data);
+      setPostData(data);
       return;
     }
     // Search by tags
@@ -111,7 +111,7 @@ const Home = () => {
       data.queryTag.forEach((element) => {
         queryPost.push(...element["posts"]);
       });
-      setMydata({ queryPost: queryPost });
+      setPostData(queryPost);
       return;
     }
     // search by both
@@ -119,38 +119,31 @@ const Home = () => {
       text: textString,
       tags: tag,
     });
-
-    let queryPost = [];
-    data.queryPostByTextAndTags.forEach((element) => {
-      queryPost.push(element);
-    });
-    setMydata({ queryPost: queryPost });
+    setPostData(data.queryPostByTextAndTags);
   };
 
   const handleClick = async () => {
-    search(textString, searchTag);
-    return;
+    await search(textString, searchTag);
   };
 
   const handleChange = async (text) => {
+    await search(text, searchTag);
     setTextString(text);
-    search(text, searchTag);
   };
 
-  const SortBy = async (by) => {
-    if (by === "") return;
-    let data = mydata;
-    setMydata({ queryPost: sortBy(data.queryPost, by) });
-    return;
+  const SortBy = (by) => {
+    const data = postData;
+    setPostData(sortBy(data, by));
   };
 
-  const onChangeTag = (tag) => {
+  // used for toggling tag also
+  const onChangeTag = async (tag) => {
     if (tag === searchTag) {
       setSearchTag("");
-      search(textString, "");
+      await search(textString, "");
     } else {
       setSearchTag(tag);
-      search(textString, tag);
+      await search(textString, tag);
     }
   };
 
@@ -158,7 +151,7 @@ const Home = () => {
     <>
       <Navbar title="Home" color="primary" />
       <Content>
-        {mydata != null && (
+        {postData !== null && (
           <>
             <div className="homepage-container">
               <div className="homepage-sidebar">
@@ -181,7 +174,7 @@ const Home = () => {
                     <SearchBar
                       value={textString}
                       label="Search your joke here"
-                      onChange={(newText) => handleChange(newText)}
+                      onChange={ async (newText) => await handleChange(newText)}
                       onRequestSearch={handleClick}
                       onCancelSearch={() => {
                         setTextString("");
@@ -200,7 +193,7 @@ const Home = () => {
                   </div>
                 </div>
                 <br />
-                <MasonartGrid data={mydata} isApproved={true} />
+                <MasonaryGrid data={postData} isApproved={true} />
               </div>
             </div>
           </>

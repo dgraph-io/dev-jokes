@@ -41,7 +41,7 @@ function UnApprovedList({loading, error, data, allTags}) {
     }
     client.writeQuery({
       query: GET_UNAPPROVED_POST,
-      data: {queryPost: [newUnapproved, ...existing_unapproved.queryPost]}
+      data: [newUnapproved, ...existing_unapproved.queryPost]
     })
   }
 
