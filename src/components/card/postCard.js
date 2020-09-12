@@ -239,7 +239,7 @@ export default function PostCard({
     var totalLikes = 0
     if (likes){
 
-      if (!user || !isLoading || !isAuthenticated){
+      if (isLoading || !user){
         //
       } else {
         likes.forEach((item) => {
@@ -257,7 +257,7 @@ export default function PostCard({
 
   // set flags
   useEffect(() => {
-    if (!flags || !user || !isLoading || !isAuthenticated) return;
+    if (!flags || isLoading || !user) return;
     flags.forEach((item) => {
       if (item['username'] === user.email) {
         setFlagged(true);
@@ -339,7 +339,7 @@ export default function PostCard({
               <Typography
                 variant="button"
                 style={{
-                  color: liked ? orange[500] : grey[500],
+                  color: liked ? red[500] : grey[500],
                   font: '15px arial',
                 }}
                 className={classes.likeCount}
