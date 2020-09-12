@@ -51,7 +51,7 @@ function UnApprovedList({loading, error, data, allTags}) {
       Something Went Wrong. Did you remember to set the REACT_APP_GRAPHQL_ENDPOINT environment variable?
     </Typography>
   }
-  return <MasonaryGrid data={data} isApproved={false} updateCache={updateCache} allTags={allTags}/>
+  return <MasonaryGrid data={data.queryPost} isApproved={false} updateCache={updateCache} allTags={allTags}/>
 }
 
 export default Approve;

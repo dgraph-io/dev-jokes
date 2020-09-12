@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { isMobile } from "react-device-detect";
+import { useDebounce } from "use-debounce";
 
 import Content from "../components/content";
 import { Navbar } from "../components/navbar";
@@ -50,6 +51,7 @@ const Home = () => {
   const [tagOptions, setTagOptions] = useState([]);
   const [textString, setTextString] = useState("");
   const [searchTag, setSearchTag] = useState("");
+  const [debouncedText] = useDebounce(textString, 250);
   const classes = useStyles();
 
   const searchPosts = useImperativeQuery(SEARCH_POSTS);
@@ -86,12 +88,17 @@ const Home = () => {
     }
   }, [pData, ploading, perror]);
 
+  useEffect(() => {
+    search(debouncedText, searchTag)
+    // eslint-disable-next-line
+  }, [debouncedText])
+
   //  triggers the best fitting query based on search parameter
   const search = async (textString = "", tag = "") => {
     // No input defined.
     if ((tag === "") & (textString === "")) {
       const { data } = await resetSearch();
-      setPostData(data);
+      setPostData(data.queryPost);
       return;
     }
     // Search by text
@@ -99,7 +106,7 @@ const Home = () => {
       const { data } = await searchPosts({
         text: textString,
       });
-      setPostData(data);
+      setPostData(data.queryPost);
       return;
     }
     // Search by tags
@@ -124,11 +131,6 @@ const Home = () => {
 
   const handleClick = async () => {
     await search(textString, searchTag);
-  };
-
-  const handleChange = async (text) => {
-    await search(text, searchTag);
-    setTextString(text);
   };
 
   const SortBy = (by) => {
@@ -174,7 +176,7 @@ const Home = () => {
                     <SearchBar
                       value={textString}
                       label="Search your joke here"
-                      onChange={ async (newText) => await handleChange(newText)}
+                      onChange={ (newText) => setTextString(newText) }
                       onRequestSearch={handleClick}
                       onCancelSearch={() => {
                         setTextString("");
