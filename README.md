@@ -14,12 +14,7 @@ A simple fun applications to post and view all your developer jokes. Code respos
 - Community moderation enabled through flagging.
 
 ## Demo
-*Todo: Add GIFs*
-### Creating a Joke
-
-### Moderator Access
-
-### Searching and interacting with Jokes
+Find demo video at: https://www.youtube.com/watch?v=4N3ApjFmvMs
 
 ## Code structure and usage
 
